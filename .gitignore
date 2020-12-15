@@ -1,3 +1,4 @@
 /dags/files/
 /dags/conf/config.ini
-__pycache__/
+**/__pycache__
+
