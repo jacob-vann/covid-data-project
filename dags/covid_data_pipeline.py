@@ -3,7 +3,7 @@ from airflow.sensors import HttpSensor, S3KeySensor
 from airflow.operators import PythonOperator
 from airflow.hooks import S3Hook
 
-import scripts.config as cfg
+import conf.config as cfg
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
