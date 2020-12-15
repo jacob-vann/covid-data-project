@@ -1,5 +1,8 @@
 /dags/files/
 /dags/conf/config.ini
-/dags/__pycache__/
-/dags/conf/__pycache__/
-
+*.log
+*.pot
+*.pyc
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
