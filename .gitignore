@@ -1,4 +1,4 @@
-/dags/files/
-/dags/conf/config.ini
+/dags/files/*
+/dags/conf/config.cfg
 **/__pycache__
 
