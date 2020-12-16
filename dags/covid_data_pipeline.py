@@ -1,10 +1,9 @@
 from airflow import DAG
-from airflow.sensors import HttpSensor
-from airflow.operators import PythonOperator, S3KeySensor
+from airflow.sensors import HttpSensor, S3KeySensor
+from airflow.operators import PythonOperator
 from airflow.hooks import S3Hook
 
-import scripts.config as cfg
-
+import conf.config as cfg
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
@@ -53,17 +52,13 @@ with DAG(
     download_covid_data = PythonOperator(
         task_id='download_covid_data',
         python_callable=download_data,
-        op_kwargs={'url': cfg.covid_api_url, 'headers': cfg.covid_api_headers, 'file_name': cfg.file_name}
+        op_args=[cfg.covid_api_url, cfg.covid_api_headers, cfg.file_name]
     )
 
     upload_data_to_s3 = PythonOperator(
         task_id='upload_data_to_S3',
         python_callable=upload_to_s3,
-        op_kwargs={'file_name': cfg.file_name,
-                   'key': cfg.s3_key,
-                   'bucket_name': cfg.covid_data_bucket,
-                   'conn_id': cfg.s3_conn_id}
+        op_args=[cfg.file_name, cfg.s3_key, cfg.covid_data_bucket, cfg.s3_conn_id]
     )
-
 
 is_covid_data_available >> download_covid_data >> upload_data_to_s3
